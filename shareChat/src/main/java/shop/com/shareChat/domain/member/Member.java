@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Getter
 @EntityListeners(AuditingEntityListener.class)
-@Table(name = "user_sc")
+@Table(name = "member")
 @Entity
 public class Member {
 
@@ -23,7 +23,7 @@ public class Member {
     private String username;
 
     @Column(nullable = false , length = 60)
-    private String passwrod;
+    private String password;
 
     @Column(nullable = false , length = 20)
     private String nickname;
@@ -47,10 +47,10 @@ public class Member {
 
 
     @Builder
-    public Member(Long id, String nickname, String passwrod, String username, Role role, int state, LocalDateTime updatedAt, LocalDateTime createdAt) {
+    public Member(Long id, String nickname, String password, String username, Role role, int state, LocalDateTime updatedAt, LocalDateTime createdAt) {
         this.id = id;
         this.nickname = nickname;
-        this.passwrod = passwrod;
+        this.password = password;
         this.username = username;
         this.state = state;
         this.role = role;

@@ -37,7 +37,7 @@ public class JoinReqDto{
     public Member toEntity(BCryptPasswordEncoder passwordEncoder){
         return Member.builder()
                 .nickname(nickname)
-                .passwrod(passwordEncoder.encode(password))
+                .password(passwordEncoder.encode(password))
                 .username(username)
                 .role(Role.USER)
                 .build();

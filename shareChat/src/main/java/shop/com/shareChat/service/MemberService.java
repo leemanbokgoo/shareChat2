@@ -8,6 +8,7 @@ import shop.com.shareChat.domain.member.Member;
 import shop.com.shareChat.domain.member.repository.MemberRepository;
 import shop.com.shareChat.dto.member.JoinReqDto;
 import shop.com.shareChat.dto.member.JoinResDto;
+import shop.com.shareChat.dto.member.MemberResDto;
 import shop.com.shareChat.ex.CustomApiException;
 import shop.com.shareChat.ex.ErrorCode;
 
@@ -36,5 +37,18 @@ public class MemberService {
         Member memberPS = memberRepository.save(joinReqDto.toEntity(passwordEncoder));
         // dto 응답
         return new JoinResDto(memberPS);
+    }
+
+    @Transactional(readOnly = false)
+    public MemberResDto findMemberInfoById(Long memberId) {
+        return memberRepository.findById(memberId)
+                .map(MemberResDto::of)
+                .orElseThrow(() -> new CustomApiException(ErrorCode.USER_NOT_FOUND));
+    }
+
+    public MemberResDto findMemberInfoByEmail(String username) {
+        return memberRepository.findByUsername(username)
+                .map(MemberResDto::of)
+                .orElseThrow(() -> new CustomApiException(ErrorCode.USER_NOT_FOUND));
     }
 }
